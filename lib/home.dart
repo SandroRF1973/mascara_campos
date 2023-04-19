@@ -12,7 +12,8 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final TextEditingController _cpfController = TextEditingController();
-  final String _valorRecuperado = "";
+  final TextEditingController _cnpjController = TextEditingController();
+  String _valorRecuperado = "";
 
   @override
   Widget build(BuildContext context) {
@@ -24,15 +25,32 @@ class _HomeState extends State<Home> {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
+            //CPF
             TextField(
               controller: _cpfController,
               keyboardType: TextInputType.number,
-              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              inputFormatters: [
+                FilteringTextInputFormatter.digitsOnly,
+                CpfInputFormatter()
+              ],
               decoration: const InputDecoration(hintText: "Digite CPF"),
+            ),
+            //CNPJ
+            TextField(
+              controller: _cnpjController,
+              keyboardType: TextInputType.number,
+              inputFormatters: [
+                FilteringTextInputFormatter.digitsOnly,
+                CnpjInputFormatter()
+              ],
+              decoration: const InputDecoration(hintText: "Digite CNPJ"),
             ),
             ElevatedButton(
                 onPressed: () {
-                  setState(() {});
+                  setState(() {
+                    //_valorRecuperado = _cpfController.text.toString();
+                    _valorRecuperado = _cnpjController.text.toString();
+                  });
                 },
                 child: const Text("Recuperar Valor")),
             Text(
